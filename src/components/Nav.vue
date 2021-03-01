@@ -22,8 +22,30 @@
     />
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#">Sign out</a>
+        <router-link class="nav-link" to="/profile">{{ user?.first_name }}</router-link>
+      </li>
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#" @click.prevent="logout">Sign out</a>
       </li>
     </ul>
   </nav>
 </template>
+
+<script>
+import { useRouter } from "vue-router";
+
+export default {
+  name: "Nav",
+  props: ["user"],
+  setup() {
+    const router = useRouter();
+    const logout = () => {
+      localStorage.clear();
+      router.push("/register");
+    };
+    return {
+      logout,
+    };
+  },
+};
+</script>
